@@ -11,7 +11,7 @@
 
         <!-- Implementação do JPA, no nosso caso Hibernate -->
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        
+    
         <!-- <class>br.com.ideao.loja.model.Produto</class> -->
 
          <properties>
@@ -29,6 +29,23 @@
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
+
+            <!-- Configurações específicas da integração Hibernate com Pool de conexões c3p0-->
+            <!-- mínimo de conexões ou portas disponiveis/abertas -->
+            <property name="hibernate.c3p0.min_size" value="5"/>
+
+            <!-- máximo de conexões ou portas disponiveis/abertas -->
+            <property name="hibernate.c3p0.max_size" value="100"/>
+
+            <!-- o número de segundos em que uma conexão inativa é mantida no pool de conexões -->
+            <property name="hibernate.c3p0.timeout" value="300"/>
+
+            <!-- o número total de instruções, transações, operações - PreparedStatements
+             - mantidas em cache no banco de dados -->
+            <property name="hibernate.c3p0.max_statements" value="50"/>
+            
+            <!-- tempo ocioso em segundos antes de uma conexão ser validada novamente -->
+            <property name="hibernate.c3p0.idle_test_period" value="120"/> 
         </properties>
     </persistence-unit>
 </persistence>
