@@ -2,10 +2,10 @@ package br.com.ideao.loja.testes;
 
 import java.math.BigDecimal;
 
+import br.com.ideao.loja.dao.ProdutoDao;
 import br.com.ideao.loja.model.Produto;
+import br.com.ideao.loja.util.JPAUtil;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 
 public class CadastroProduto {
     public static void main(String[] args) {
@@ -14,11 +14,12 @@ public class CadastroProduto {
         tablet.setDescricao("Tablet de ótima qualidade");
         tablet.setPreco(new BigDecimal("2000"));
 
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("loja");
-        EntityManager em = factory.createEntityManager();
-        
+        EntityManager em = JPAUtil.getEntityManager();
+        ProdutoDao produtoDao = new ProdutoDao(em);
+
         em.getTransaction().begin();
-        em.persist(tablet);
+        
+        produtoDao.cadastrar(tablet);
         em.getTransaction().commit();
         em.close();    
     }
