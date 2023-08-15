@@ -30,6 +30,8 @@ public class CadastroProduto {
         em.clear();
         informatica.setNome("Eletrônicos");
         categoriaDao.atualizar(informatica);
+        informatica = em.merge(informatica);
+        em.remove(informatica);
         em.getTransaction().commit();
     }
 }
