@@ -33,6 +33,11 @@ public class Produto {
         this.categoria = categoria;
     }
     
+    public Produto() {
+        super();
+    }
+
+
     public Long getId() {
         return id;
     }

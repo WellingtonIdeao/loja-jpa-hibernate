@@ -11,10 +11,10 @@ import jakarta.persistence.EntityManager;
 
 public class CadastroProduto {
     public static void main(String[] args) {
-        Categoria informatica = new Categoria("Informática");
+        Categoria informatica = new Categoria("Teste");
 
         Produto tablet = new Produto(
-            "Tablet Samsung S6 lite",
+            "Tablet Samsung S6 lite 2",
             "Tablet de ótima qualidade",
             new BigDecimal("2000"), informatica
         );
@@ -25,8 +25,11 @@ public class CadastroProduto {
 
         em.getTransaction().begin();
         categoriaDao.cadastrar(informatica);
-        produtoDao.cadastrar(tablet);
+        em.flush();
+        // produtoDao.cadastrar(tablet);
+        em.clear();
+        informatica.setNome("Eletrônicos");
+        categoriaDao.atualizar(informatica);
         em.getTransaction().commit();
-        em.close();    
     }
 }

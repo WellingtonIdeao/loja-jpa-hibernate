@@ -20,6 +20,11 @@ public class Categoria {
         this.nome = nome;
     }
     
+    public Categoria() {
+        super();
+    }
+
+
     public Long getId() {
         return id;
     }
