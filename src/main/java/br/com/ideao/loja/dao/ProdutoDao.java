@@ -1,5 +1,6 @@
 package br.com.ideao.loja.dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import br.com.ideao.loja.model.Produto;
@@ -47,6 +48,15 @@ public class ProdutoDao {
         TypedQuery<Produto> query = this.em.createQuery(jpql, Produto.class)
                                 .setParameter("nome", nome);
 
+        return query.getResultList();
+    }
+
+    public List<BigDecimal> buscarPrecoDoProdutoPorNome(String nome) {
+        String jpql = "SELECT p.nome FROM Produto p WHERE p.nome = :nome";
+        TypedQuery<BigDecimal> query = this.em.createQuery(jpql, BigDecimal.class)
+                                .setParameter("nome", nome);
+
+        // return query.getSingleResult();                        
         return query.getResultList();
     }
 }
