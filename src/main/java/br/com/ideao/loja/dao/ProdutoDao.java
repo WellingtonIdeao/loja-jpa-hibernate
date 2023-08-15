@@ -27,4 +27,26 @@ public class ProdutoDao {
         TypedQuery<Produto> query = this.em.createQuery(jpql, Produto.class);
         return query.getResultList();
     }
+
+    public List<Produto> buscarPorNome(String nome) {
+        // position parameter
+        // String jpql = "SELECT p FROM Produto p WHERE p.nome = ?1";
+        // TypedQuery<Produto> query = this.em.createQuery(jpql, Produto.class)
+        //                         .setParameter(1, nome);
+        
+        // named parameter
+        String jpql = "SELECT p FROM Produto p WHERE p.nome = :nome";
+        TypedQuery<Produto> query = this.em.createQuery(jpql, Produto.class)
+                                .setParameter("nome", nome);
+        
+        return query.getResultList();
+    }
+
+    public List<Produto> buscarPorCategoria(String nome) {
+        String jpql = "SELECT p FROM Produto p WHERE p.categoria.nome = :nome";
+        TypedQuery<Produto> query = this.em.createQuery(jpql, Produto.class)
+                                .setParameter("nome", nome);
+
+        return query.getResultList();
+    }
 }

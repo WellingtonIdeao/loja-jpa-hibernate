@@ -18,10 +18,12 @@ public class CadastroProduto {
 
         Produto produto = produtoDao.buscarPorId(1l);
         List<Produto> produtos = produtoDao.buscarTodos();
+        // List<Produto> produtos = produtoDao.buscarPorNome("Tablet Samsung S6 Lite");
+        // List<Produto> produtos = produtoDao.buscarPorCategoria("Informática");
 
         System.out.println(produto.getNome());
-        produtos.forEach(p -> System.out.println(p.getNome()));
 
+        produtos.forEach(p -> System.out.println(p.getNome()));
     }
 
     private static void cadastrarProduto() {
