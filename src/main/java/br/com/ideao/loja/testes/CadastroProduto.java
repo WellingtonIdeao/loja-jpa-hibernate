@@ -1,6 +1,7 @@
 package br.com.ideao.loja.testes;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import br.com.ideao.loja.dao.CategoriaDao;
 import br.com.ideao.loja.dao.ProdutoDao;
@@ -11,10 +12,23 @@ import jakarta.persistence.EntityManager;
 
 public class CadastroProduto {
     public static void main(String[] args) {
-        Categoria informatica = new Categoria("Teste");
+        cadastrarProduto();
+        EntityManager em = JPAUtil.getEntityManager();
+        ProdutoDao produtoDao = new ProdutoDao(em);
+
+        Produto produto = produtoDao.buscarPorId(1l);
+        List<Produto> produtos = produtoDao.buscarTodos();
+
+        System.out.println(produto.getNome());
+        produtos.forEach(p -> System.out.println(p.getNome()));
+
+    }
+
+    private static void cadastrarProduto() {
+        Categoria informatica = new Categoria("Informática");
 
         Produto tablet = new Produto(
-            "Tablet Samsung S6 lite 2",
+            "Tablet Samsung S6 lite",
             "Tablet de ótima qualidade",
             new BigDecimal("2000"), informatica
         );
@@ -25,12 +39,10 @@ public class CadastroProduto {
 
         em.getTransaction().begin();
         categoriaDao.cadastrar(informatica);
-        em.flush();
-        // produtoDao.cadastrar(tablet);
-        em.clear();
-        informatica.setNome("Eletrônicos");
-        categoriaDao.atualizar(informatica);
-        categoriaDao.remover(informatica);
+        produtoDao.cadastrar(tablet);
+        // categoriaDao.atualizar(informatica);
+        // categoriaDao.remover(informatica);
         em.getTransaction().commit();
+        em.close();
     }
 }
