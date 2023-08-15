@@ -19,13 +19,13 @@ public class CadastroProduto {
         Produto produto = produtoDao.buscarPorId(1l);
         List<Produto> produtos = produtoDao.buscarTodos();
         // List<Produto> produtos = produtoDao.buscarPorNome("Tablet Samsung S6 Lite");
-        // List<Produto> produtos = produtoDao.buscarPorCategoria("Informática");
+        // List<Produto> produtos = produtoDao.buscarPorNomeDaCategoria("Informática");
 
         System.out.println(produto.getNome());
 
         produtos.forEach(p -> System.out.println(p.getNome()));
 
-        List<BigDecimal> precoDoProduto = produtoDao.buscarPrecoDoProdutoPorNome("Tablet Samsung S6 Lite");
+        List<BigDecimal> precoDoProduto = produtoDao.buscarPrecoDoProdutoComNome("Tablet Samsung S6 Lite");
         System.err.println("Preço do produto: "+ precoDoProduto);
     }
 
