@@ -2,6 +2,7 @@ package br.com.ideao.loja.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -29,8 +30,8 @@ public class Pedido {
     // @JoinTable(name = "itens_pedido")
     // private List<Produto> produtos;
     
-    @OneToMany
-    private List<ItemPedido> itens;
+    @OneToMany( mappedBy = "pedido")
+    private List<ItemPedido> itens = new ArrayList<>();
     
     public Pedido() {
         super();
@@ -38,6 +39,11 @@ public class Pedido {
 
     public Pedido(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public void addItem(ItemPedido item){
+        item.setPedido(this);
+        this.itens.add(item);
     }
 
     public Long getId(){
@@ -63,6 +69,9 @@ public class Pedido {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
+
+    
     
     
 

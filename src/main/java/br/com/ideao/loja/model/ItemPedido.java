@@ -2,8 +2,6 @@ package br.com.ideao.loja.model;
 
 import java.math.BigDecimal;
 
-import org.hibernate.annotations.ManyToAny;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,7 +18,7 @@ public class ItemPedido {
     private BigDecimal precoUnitario;
     private Integer quantidade;
     
-    @ManyToAny
+    @ManyToOne
     private Pedido pedido;
     @ManyToOne
     private Produto produto;
@@ -32,6 +30,7 @@ public class ItemPedido {
     public ItemPedido(Integer quantidade, Pedido pedido, Produto produto) {
         this.quantidade = quantidade;
         this.pedido = pedido;
+        this.precoUnitario = produto.getPreco();
         this.produto = produto;
     }
 
