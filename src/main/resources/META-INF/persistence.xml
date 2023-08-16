@@ -29,7 +29,7 @@
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
 
             <!-- Configurações específicas da integração Hibernate com Pool de conexões c3p0-->
             <!-- mínimo de conexões ou portas disponiveis/abertas -->

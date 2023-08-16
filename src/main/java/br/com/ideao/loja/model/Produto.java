@@ -3,6 +3,7 @@ package br.com.ideao.loja.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,6 +21,8 @@ public class Produto {
     private String nome;
     private String descricao;
     private BigDecimal preco;
+
+    @Column(name = "data_cadastro")
     private LocalDate dataCadastro = LocalDate.now();
     
     //foreign key

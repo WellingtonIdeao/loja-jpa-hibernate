@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,6 +22,8 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @Column(name = "valor_total")
     private BigDecimal valorTotal;
     private LocalDate data = LocalDate.now();
     
@@ -30,7 +34,7 @@ public class Pedido {
     // @JoinTable(name = "itens_pedido")
     // private List<Produto> produtos;
     
-    @OneToMany( mappedBy = "pedido")
+    @OneToMany( mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<ItemPedido> itens = new ArrayList<>();
     
     public Pedido() {
