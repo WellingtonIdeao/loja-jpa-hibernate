@@ -20,36 +20,6 @@ public class CadastroPedido {
     
     public static void main(String[] args) {
        popularBancoDeDados();
-       EntityManager em = JPAUtil.getEntityManager();
-       ProdutoDao produtoDao = new ProdutoDao(em);
-       ClienteDao clienteDao = new ClienteDao(em);
-       PedidoDao pedidoDao = new PedidoDao(em);
-
-       
-       Produto produto = produtoDao.buscarPorId(1l);
-       Produto produto2 = produtoDao.buscarPorId(2l);
-       Produto produto3 = produtoDao.buscarPorId(3l);
-       Cliente cliente = clienteDao.buscarPorId(1l); 
-       
-
-       Pedido pedido = new Pedido(cliente);
-       pedido.addItem(new ItemPedido(3, pedido, produto));
-       pedido.addItem(new ItemPedido(10, pedido, produto2));
-
-       Pedido pedido2 = new Pedido(cliente);
-       pedido2.addItem(new ItemPedido(2, pedido2, produto3));
-       
-       em.getTransaction().begin();
-       pedidoDao.cadastrar(pedido);
-       pedidoDao.cadastrar(pedido2);
-       em.getTransaction().commit();
-
-       BigDecimal totalVendido = pedidoDao.valorTotalVendido();
-       System.out.println("VALOR TOTAL: "+ totalVendido);
-
-       List<RelatorioDeVendas> relatorio = pedidoDao.relatorioDeVendas();
-       relatorio.forEach(System.out::println);
-       em.close();   
     }
 
      private static void popularBancoDeDados() {
@@ -77,12 +47,21 @@ public class CadastroPedido {
         );
 
         Cliente cliente = new Cliente("Wellington", "12345678901");
+       
+        Pedido pedido = new Pedido(cliente);
+        pedido.addItem(new ItemPedido(3, pedido, celular));
+        pedido.addItem(new ItemPedido(10, pedido, videogame));
+
+        Pedido pedido2 = new Pedido(cliente);
+        pedido2.addItem(new ItemPedido(2, pedido2, macBook));
+
         
         EntityManager em = JPAUtil.getEntityManager();
         CategoriaDao categoriaDao = new CategoriaDao(em);
         ProdutoDao produtoDao = new ProdutoDao(em);
         ClienteDao clienteDao = new ClienteDao(em);
-
+        PedidoDao pedidoDao = new PedidoDao(em);
+        
         em.getTransaction().begin();
 
         categoriaDao.cadastrar(celulares);
@@ -95,7 +74,17 @@ public class CadastroPedido {
         
         clienteDao.cadastrar(cliente);
         
+        pedidoDao.cadastrar(pedido);
+        pedidoDao.cadastrar(pedido2);
+       
         em.getTransaction().commit();
+        
+        BigDecimal totalVendido = pedidoDao.valorTotalVendido();
+        System.out.println("VALOR TOTAL: "+ totalVendido);
+
+        List<RelatorioDeVendas> relatorio = pedidoDao.relatorioDeVendas();
+        relatorio.forEach(System.out::println);
+       
         em.close();
     }
 }
