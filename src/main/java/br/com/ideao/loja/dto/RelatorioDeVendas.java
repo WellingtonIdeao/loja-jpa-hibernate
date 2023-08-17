@@ -1,13 +1,13 @@
-package br.com.ideao.loja.valueobjects;
+package br.com.ideao.loja.dto;
 
 import java.time.LocalDate;
 
-public class RelatorioDeVendasVo {
+public class RelatorioDeVendas {
     private String nomeProduto;
     private Long quantidadeVendida;
     private LocalDate dataUltimaVenda;
 
-    public RelatorioDeVendasVo(String nomeProduto, Long quantidadeVendida, LocalDate dataUltimaVenda) {
+    public RelatorioDeVendas(String nomeProduto, Long quantidadeVendida, LocalDate dataUltimaVenda) {
         this.nomeProduto = nomeProduto;
         this.quantidadeVendida = quantidadeVendida;
         this.dataUltimaVenda = dataUltimaVenda;

@@ -3,8 +3,8 @@ package br.com.ideao.loja.dao;
 import java.math.BigDecimal;
 import java.util.List;
 
+import br.com.ideao.loja.dto.RelatorioDeVendas;
 import br.com.ideao.loja.model.Pedido;
-import br.com.ideao.loja.valueobjects.RelatorioDeVendasVo;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
@@ -39,8 +39,8 @@ public class PedidoDao {
     //         .getResultList();
     // }
 
-    public List<RelatorioDeVendasVo> relatorioDeVendas() {
-        String jpql = "SELECT NEW br.com.ideao.loja.valueobjects.RelatorioDeVendasVo(" 
+    public List<RelatorioDeVendas> relatorioDeVendas() {
+        String jpql = "SELECT NEW br.com.ideao.loja.dto.RelatorioDeVendas(" 
                     + "produto.nome, "
                     + "SUM(item.quantidade) AS quantidadeTotal, "
                     + "MAX(pedido.data)) "
@@ -49,7 +49,7 @@ public class PedidoDao {
                     + "JOIN item.produto produto "
                     + "GROUP BY produto.nome "
                     + "ORDER BY quantidadeTotal DESC";
-        return em.createQuery(jpql,RelatorioDeVendasVo.class)
+        return em.createQuery(jpql,RelatorioDeVendas.class)
             .getResultList();
     }
 }
