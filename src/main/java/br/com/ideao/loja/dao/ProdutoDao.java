@@ -82,8 +82,7 @@ public class ProdutoDao {
         if (dataCadastro != null) {
             jpql += " AND p.dataCadastro = :dataCadastro";
         }
-
-        System.out.println(jpql);
+        
         TypedQuery<Produto> query = this.em.createQuery(jpql, Produto.class);
         
         if (nome != null && !nome.trim().isEmpty()) {
