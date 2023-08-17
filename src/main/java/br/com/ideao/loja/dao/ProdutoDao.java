@@ -1,6 +1,7 @@
 package br.com.ideao.loja.dao;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 import br.com.ideao.loja.model.Produto;
@@ -66,6 +67,34 @@ public class ProdutoDao {
                                 .setParameter("nome", nome);
 
         // return query.getSingleResult();                        
+        return query.getResultList();
+    }
+
+    public List<Produto> buscarComParametrosOpcionais(String nome, BigDecimal preco, LocalDate dataCadastro){
+        String jpql = "SELECT p FROM Produto p WHERE 1+1 ";
+        
+        if (nome != null && !nome.trim().isEmpty()) {
+            jpql = "AND p.nome = :nome";
+        }
+        if (preco != null) {
+            jpql = "AND p.preco = :preco";
+        }
+        if (dataCadastro != null) {
+            jpql = "AND p.dataCadastro = :dataCadastro";
+        }
+
+        TypedQuery<Produto> query = this.em.createQuery(jpql, Produto.class);
+        
+        if (nome != null && !nome.trim().isEmpty()) {
+            query.setParameter("nome", nome);    
+        }
+        if (preco != null) {
+            query.setParameter("preco", preco);
+        }
+        if (dataCadastro != null) {
+            query.setParameter("dataCadastro", dataCadastro);
+        }
+
         return query.getResultList();
     }
 }
