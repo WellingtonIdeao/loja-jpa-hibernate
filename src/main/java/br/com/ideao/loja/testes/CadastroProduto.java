@@ -17,9 +17,9 @@ public class CadastroProduto {
         ProdutoDao produtoDao = new ProdutoDao(em);
 
         Produto produto = produtoDao.buscarPorId(1l);
-        List<Produto> produtos = produtoDao.buscarTodos();
+        // List<Produto> produtos = produtoDao.buscarTodos();
         // List<Produto> produtos = produtoDao.buscarPorNome("Tablet Samsung S6 Lite");
-        // List<Produto> produtos = produtoDao.buscarPorNomeDaCategoria("Informática");
+        List<Produto> produtos = produtoDao.buscarPorNomeDaCategoria("Informática");
 
         System.out.println(produto.getNome());
 

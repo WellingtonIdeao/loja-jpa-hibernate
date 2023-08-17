@@ -43,13 +43,22 @@ public class ProdutoDao {
         return query.getResultList();
     }
 
+    // public List<Produto> buscarPorNomeDaCategoria(String nome) {
+    //     String jpql = "SELECT p FROM Produto p WHERE p.categoria.nome = :nome";
+    //     TypedQuery<Produto> query = this.em.createQuery(jpql, Produto.class)
+    //                             .setParameter("nome", nome);
+
+    //     return query.getResultList();
+    // }
+
     public List<Produto> buscarPorNomeDaCategoria(String nome) {
-        String jpql = "SELECT p FROM Produto p WHERE p.categoria.nome = :nome";
-        TypedQuery<Produto> query = this.em.createQuery(jpql, Produto.class)
+        TypedQuery<Produto> query =
+                this.em.createNamedQuery("Produto.produtoPorCategoria", Produto.class)
                                 .setParameter("nome", nome);
 
         return query.getResultList();
     }
+
 
     public List<BigDecimal> buscarPrecoDoProdutoComNome(String nome) {
         String jpql = "SELECT p.nome FROM Produto p WHERE p.nome = :nome";

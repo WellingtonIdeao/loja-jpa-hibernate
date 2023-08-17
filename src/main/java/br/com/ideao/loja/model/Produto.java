@@ -9,10 +9,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "produto")
+@NamedQuery(name = "Produto.produtoPorCategoria",
+query = "SELECT p FROM Produto p WHERE p.categoria.nome = :nome")
 public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
