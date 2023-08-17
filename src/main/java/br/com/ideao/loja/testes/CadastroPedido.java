@@ -20,6 +20,10 @@ public class CadastroPedido {
     
     public static void main(String[] args) {
        popularBancoDeDados();
+       EntityManager em = JPAUtil.getEntityManager();
+       Pedido pedido = em.find(Pedido.class, 1l);
+       System.out.println(pedido.getItens().size());
+       em.close();
     }
 
      private static void popularBancoDeDados() {
