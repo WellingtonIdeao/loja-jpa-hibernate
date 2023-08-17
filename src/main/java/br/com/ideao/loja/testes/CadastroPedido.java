@@ -1,6 +1,7 @@
 package br.com.ideao.loja.testes;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import br.com.ideao.loja.dao.CategoriaDao;
 import br.com.ideao.loja.dao.ClienteDao;
@@ -23,28 +24,58 @@ public class CadastroPedido {
        ClienteDao clienteDao = new ClienteDao(em);
        PedidoDao pedidoDao = new PedidoDao(em);
 
+       
        Produto produto = produtoDao.buscarPorId(1l);
+       Produto produto2 = produtoDao.buscarPorId(2l);
+       Produto produto3 = produtoDao.buscarPorId(3l);
        Cliente cliente = clienteDao.buscarPorId(1l); 
        
+
        Pedido pedido = new Pedido(cliente);
-       pedido.addItem(new ItemPedido(2, pedido, produto));
+       pedido.addItem(new ItemPedido(3, pedido, produto));
+       pedido.addItem(new ItemPedido(10, pedido, produto2));
+
+       Pedido pedido2 = new Pedido(cliente);
+       pedido2.addItem(new ItemPedido(2, pedido2, produto3));
+       
        em.getTransaction().begin();
        pedidoDao.cadastrar(pedido);
+       pedidoDao.cadastrar(pedido2);
        em.getTransaction().commit();
 
        BigDecimal totalVendido = pedidoDao.valorTotalVendido();
        System.out.println("VALOR TOTAL: "+ totalVendido);
+
+       List<Object[]> relatorio = pedidoDao.relatorioDeVendas();
+       for (Object[] objects : relatorio) {
+            System.out.println(objects[0] +" | "+ objects[1] + " | " + objects[2]);
+       }
        em.close();
        
     }
 
      private static void popularBancoDeDados() {
-        Categoria informatica = new Categoria("Informática");
+        Categoria celulares = new Categoria("CELULARES");
+        Categoria videogames = new Categoria("VIDEOGAMES");
+        Categoria informatica = new Categoria("INFORMÁTICA");
 
-        Produto tablet = new Produto(
-            "Tablet Samsung S6 lite",
-            "Tablet de ótima qualidade",
-            new BigDecimal("2000"), informatica
+        Produto celular = new Produto(
+            "Xiaomi Redmi",
+            "Redmi 12S",
+            new BigDecimal("1500"),
+            celulares
+        );
+        Produto videogame = new Produto(
+            "PS5",
+            "Playstation 5",
+            new BigDecimal("4000"),
+            videogames
+        );
+        Produto macBook = new Produto(
+            "MacBook",
+            "MacBook pro",
+            new BigDecimal("8000"),
+            informatica
         );
 
         Cliente cliente = new Cliente("Wellington", "12345678901");
@@ -56,8 +87,14 @@ public class CadastroPedido {
 
         em.getTransaction().begin();
 
+        categoriaDao.cadastrar(celulares);
+        categoriaDao.cadastrar(videogames);
         categoriaDao.cadastrar(informatica);
-        produtoDao.cadastrar(tablet);
+        
+        produtoDao.cadastrar(celular);
+        produtoDao.cadastrar(videogame);
+        produtoDao.cadastrar(macBook);
+        
         clienteDao.cadastrar(cliente);
         
         em.getTransaction().commit();
