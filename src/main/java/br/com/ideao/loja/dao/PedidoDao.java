@@ -42,13 +42,13 @@ public class PedidoDao {
     public List<RelatorioDeVendasVo> relatorioDeVendas() {
         String jpql = "SELECT NEW br.com.ideao.loja.valueobjects.RelatorioDeVendasVo(" 
                     + "produto.nome, "
-                    + "SUM(item.quantidade), "
+                    + "SUM(item.quantidade) AS quantidadeTotal, "
                     + "MAX(pedido.data)) "
                     + "FROM Pedido pedido "
                     + "JOIN pedido.itens item "
                     + "JOIN item.produto produto "
-                    + "GROUP BY produto.nome, item.quantidade "
-                    + "ORDER BY item.quantidade DESC";
+                    + "GROUP BY produto.nome "
+                    + "ORDER BY quantidadeTotal DESC";
         return em.createQuery(jpql,RelatorioDeVendasVo.class)
             .getResultList();
     }

@@ -49,8 +49,7 @@ public class CadastroPedido {
 
        List<RelatorioDeVendasVo> relatorio = pedidoDao.relatorioDeVendas();
        relatorio.forEach(System.out::println);
-       em.close();
-       
+       em.close();   
     }
 
      private static void popularBancoDeDados() {
