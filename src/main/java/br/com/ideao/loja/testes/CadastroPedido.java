@@ -13,6 +13,7 @@ import br.com.ideao.loja.model.ItemPedido;
 import br.com.ideao.loja.model.Pedido;
 import br.com.ideao.loja.model.Produto;
 import br.com.ideao.loja.util.JPAUtil;
+import br.com.ideao.loja.valueobjects.RelatorioDeVendasVo;
 import jakarta.persistence.EntityManager;
 
 public class CadastroPedido {
@@ -46,10 +47,8 @@ public class CadastroPedido {
        BigDecimal totalVendido = pedidoDao.valorTotalVendido();
        System.out.println("VALOR TOTAL: "+ totalVendido);
 
-       List<Object[]> relatorio = pedidoDao.relatorioDeVendas();
-       for (Object[] objects : relatorio) {
-            System.out.println(objects[0] +" | "+ objects[1] + " | " + objects[2]);
-       }
+       List<RelatorioDeVendasVo> relatorio = pedidoDao.relatorioDeVendas();
+       relatorio.forEach(System.out::println);
        em.close();
        
     }
