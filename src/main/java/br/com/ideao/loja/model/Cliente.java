@@ -1,5 +1,6 @@
 package br.com.ideao.loja.model;
 
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,35 +14,27 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
-    private String cpf;
+    
+    @Embedded
+    private DadosPessoais dadosPessoais;
 
     public Cliente() {
         super();
     }
 
     public Cliente(String nome, String cpf) {
-        this.nome = nome;
-        this.cpf = cpf;
+        this.dadosPessoais = new DadosPessoais(nome, cpf);
     }
 
     public Long getId(){
         return this.id;
     }
 
+    public DadosPessoais getDadosPessoais() {
+        return this.dadosPessoais;
+    }
+
     public String getNome() {
-        return this.nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCpf() {
-        return this.cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+        return this.dadosPessoais.getNome();
     }
 }
