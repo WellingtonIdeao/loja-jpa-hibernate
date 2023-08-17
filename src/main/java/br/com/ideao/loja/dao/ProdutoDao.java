@@ -71,16 +71,16 @@ public class ProdutoDao {
     }
 
     public List<Produto> buscarComParametrosOpcionais(String nome, BigDecimal preco, LocalDate dataCadastro){
-        String jpql = "SELECT p FROM Produto p WHERE 1+1 ";
+        String jpql = "SELECT p FROM Produto p WHERE 1+1";
         
         if (nome != null && !nome.trim().isEmpty()) {
-            jpql = "AND p.nome = :nome";
+            jpql = " AND p.nome = :nome";
         }
         if (preco != null) {
-            jpql = "AND p.preco = :preco";
+            jpql = " AND p.preco = :preco";
         }
         if (dataCadastro != null) {
-            jpql = "AND p.dataCadastro = :dataCadastro";
+            jpql = " AND p.dataCadastro = :dataCadastro";
         }
 
         TypedQuery<Produto> query = this.em.createQuery(jpql, Produto.class);
