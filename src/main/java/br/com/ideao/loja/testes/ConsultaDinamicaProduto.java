@@ -16,8 +16,10 @@ public class ConsultaDinamicaProduto {
         popularBancoDeDados();
         EntityManager em = JPAUtil.getEntityManager();
         ProdutoDao produtoDao = new ProdutoDao(em);
-        List<Produto> buscarComParametrosOpcionais = produtoDao.buscarComParametrosOpcionais("PS5", null, LocalDate.now());
-        buscarComParametrosOpcionais.forEach((p) -> System.out.println(p.getNome()));
+        List<Produto> buscarComJpa = produtoDao.buscarComParametrosOpcionais("PS5", null, LocalDate.now());
+        List<Produto> buscarComCriteria = produtoDao.buscarComParametrosOpcionaisComCriteria("PS5", null, LocalDate.now());
+        buscarComJpa.forEach((p) -> System.out.println(p.getNome()));
+        buscarComCriteria.forEach((p) -> System.out.println(p.getNome()));
         em.close();
 
     }

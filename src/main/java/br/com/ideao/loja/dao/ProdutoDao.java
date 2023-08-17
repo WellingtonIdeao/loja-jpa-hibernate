@@ -7,6 +7,10 @@ import java.util.List;
 import br.com.ideao.loja.model.Produto;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 
 public class ProdutoDao {
 
@@ -82,7 +86,7 @@ public class ProdutoDao {
         if (dataCadastro != null) {
             jpql += " AND p.dataCadastro = :dataCadastro";
         }
-        
+
         TypedQuery<Produto> query = this.em.createQuery(jpql, Produto.class);
         
         if (nome != null && !nome.trim().isEmpty()) {
@@ -96,4 +100,27 @@ public class ProdutoDao {
         }
         return query.getResultList();
     }
+
+    public List<Produto> buscarComParametrosOpcionaisComCriteria(String nome, BigDecimal preco, LocalDate dataCadastro){
+        
+        CriteriaBuilder builder = this.em.getCriteriaBuilder();
+        
+        CriteriaQuery<Produto> query = builder.createQuery(Produto.class);
+        Root<Produto> from = query.from(Produto.class);
+        query.select(from);
+        
+        Predicate filtros = builder.and();
+
+        if (nome != null && !nome.trim().isEmpty()) {
+            filtros = builder.and(filtros, builder.equal(from.get("nome"), nome));
+        }
+        if (preco != null) {
+            filtros = builder.and(filtros, builder.equal(from.get("preco"), preco));
+        }
+        if (dataCadastro != null) {
+            filtros = builder.and(filtros, builder.equal(from.get("dataCadastro"), dataCadastro));
+        }
+        query.where(filtros);
+        return this.em.createQuery(query).getResultList();
+    }    
 }
