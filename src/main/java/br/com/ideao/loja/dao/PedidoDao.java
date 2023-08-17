@@ -52,4 +52,14 @@ public class PedidoDao {
         return em.createQuery(jpql,RelatorioDeVendas.class)
             .getResultList();
     }
+
+    public Pedido buscarPorId(Long id) {
+        return this.em.find(Pedido.class, id);
+    }
+
+    public Pedido buscarPedidoComCliente(Long id) {
+        String jpql = "SELECT p FROM Pedido p JOIN FETCH p.cliente WHERE p.id = :id";
+        TypedQuery<Pedido> query = this.em.createQuery(jpql, Pedido.class).setParameter("id", id);
+        return query.getSingleResult();
+    }
 }
