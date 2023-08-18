@@ -1,8 +1,10 @@
 package br.com.ideao.loja.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 @Entity
+@Table( name = "informatica")
 public class Informatica extends Produto {
     private String marca;
     private String modelo;

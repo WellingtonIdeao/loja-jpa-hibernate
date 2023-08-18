@@ -2,8 +2,10 @@ package br.com.ideao.loja.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "livro")
 public class Livro extends Produto {
     private String autor;
     @Column(name="numero_de_paginas")
