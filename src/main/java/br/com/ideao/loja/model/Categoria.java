@@ -1,46 +1,25 @@
 package br.com.ideao.loja.model;
 
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "categoria")
 public class Categoria {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    private String nome;
-
-    public Categoria(String nome) {
-        this.nome = nome;
-    }
+    @EmbeddedId
+    private CategoriaId id;
     
     public Categoria() {
         super();
     }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public Categoria(String nome) {
+        this.id = new CategoriaId(nome, "xpto");
     }
 
     public String getNome() {
-        return nome;
+        return this.id.getNome();
     }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    
     
 }

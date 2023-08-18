@@ -5,24 +5,29 @@ import java.io.Serializable;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
-public class DadosPessoais  implements Serializable{
+public class CategoriaId implements Serializable {
     private String nome;
-    private String cpf;
+    private String tipo;
 
-    public DadosPessoais() {
+    public CategoriaId() {
         super();
     }
 
-    public DadosPessoais(String nome, String cpf) {
+    public CategoriaId(String nome, String tipo) {
         this.nome = nome;
-        this.cpf = cpf;
+        this.tipo = tipo;
     }
 
     public String getNome() {
         return this.nome;
     }
 
-    public String getCpf() {
-        return this.cpf;
-    } 
+    public String getTipo() {
+        return this.tipo;
+    }
+
+    
+    
+
+    
 }
